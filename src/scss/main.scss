@@ -1,0 +1,164 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.weather_container {
+  height: 500px;
+  width: 300px;
+  box-shadow: 4px 4px 35px rgba(0, 0, 0, 0.349);
+  border-radius: 5px;
+
+  .upper_section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+      180deg,
+      rgba(104, 193, 238, 1) 0%,
+      rgba(8, 137, 185, 1) 100%
+    );
+
+    color: white;
+    height: 70%;
+    h2 {
+      font-size: 2rem;
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+    span {
+      font-size: 1rem;
+      font-weight: 200;
+      text-transform: capitalize;
+    }
+
+    .temperature {
+      font-size: 8rem;
+      position: relative;
+
+      .degree {
+        position: absolute;
+        top: 25%;
+        right: -10%;
+        font-size: 1rem;
+      }
+    }
+
+    .description {
+      font-weight: 400;
+    }
+
+    img {
+      height: 80px;
+    }
+    .wave {
+      position: absolute !important;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    @media (max-width: 490px) {
+      span {
+        font-size: 1.4rem;
+      }
+
+      .temperature {
+        font-size: 12rem;
+
+        .degree {
+          font-size: 2rem;
+        }
+      }
+
+      .description {
+        font-size: 1.6rem;
+      }
+    }
+  }
+  @media (max-width: 500px) {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.down_section {
+  height: 30%;
+}
+
+.weather-list {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  list-style: none;
+  align-items: center;
+  overflow-x: scroll;
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 0.8rem;
+    img {
+      height: 48px;
+    }
+
+    span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: rgb(66, 66, 66);
+      text-transform: capitalize;
+      &.min_temp {
+        opacity: 0.5;
+      }
+    }
+  }
+  @media (max-width: 490px) {
+    li {
+      span {
+        font-size: 1rem;
+      }
+      img {
+        height: 52px;
+      }
+    }
+  }
+}
+
+.loading-dash {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: white;
+  animation: loading 800ms ease-in-out infinite alternate;
+}
+
+@keyframes loading {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.errors {
+  font-size: 2rem;
+  color: rgb(223, 68, 68);
+}
