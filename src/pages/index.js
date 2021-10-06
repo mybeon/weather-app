@@ -42,8 +42,8 @@ const IndexPage = () => {
   }, []);
 
   function apiFetch(position) {
-    let apiKey = process.env.API_KEY;
-    let baseUrl = process.env.BASE_URL;
+    let apiKey = "45978a6687a1fab0ae76212f61cbc0f3";
+    let baseUrl = "https://api.openweathermap.org/data/2.5/";
     let urlCity = `${baseUrl}weather?lat=${position.lat}&lon=${position.long}&appid=${apiKey}`;
     let urlWeather = `${baseUrl}onecall?lat=${position.lat}&lon=${position.long}&exclude=minutely&appid=${apiKey}&units=metric`;
     Promise.all([
