@@ -6,6 +6,7 @@ import WeekList from "../components/weekList";
 import { StaticImage } from "gatsby-plugin-image";
 import "../scss/main.scss";
 import "../scss/tabs.scss";
+import Seo from "../components/seo";
 
 const IndexPage = () => {
   let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -53,13 +54,14 @@ const IndexPage = () => {
       .catch(() =>
         setErrors((arr) => [
           ...arr,
-          "something went wrong, please try in a whiles",
+          "something went wrong, please try in a while",
         ])
       );
   }
   if (errors.length > 0) {
     return (
       <main>
+        <Seo />
         <p className="errors">{errors[0]}</p>
       </main>
     );
@@ -77,6 +79,7 @@ const IndexPage = () => {
   console.log(time.getMinutes());
   return (
     <main>
+      <Seo />
       <div className="weather_container">
         <div className="upper_section">
           <h2>
