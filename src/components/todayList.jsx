@@ -10,7 +10,7 @@ const TodayList = ({ hourly }) => {
           <li key={hour.dt}>
             <span>{hour.dt === hourly[0].dt ? "now" : tempHour + ":00"}</span>
             <img
-              src={`http://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`}
+              src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}@2x.png`}
               alt={hour.weather[0].description}
             />
             <span>{Math.round(hour.temp)}°</span>

@@ -12,7 +12,7 @@ const WeekList = ({ daily }) => {
           <li key={day.dt}>
             <span>{day.dt === daily[0].dt ? "today" : tempDay}</span>
             <img
-              src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
+              src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
               alt={day.weather[0].description}
             />
             <span>{Math.round(day.temp.day)}°</span>

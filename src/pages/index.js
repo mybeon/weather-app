@@ -3,10 +3,10 @@ import { Tabs, Tab, TabList, TabPanel } from "react-tabs";
 import LoadingWeather from "../components/loadingWeather";
 import TodayList from "../components/todayList";
 import WeekList from "../components/weekList";
+import Seo from "../components/seo";
 import { StaticImage } from "gatsby-plugin-image";
 import "../scss/main.scss";
 import "../scss/tabs.scss";
-import Seo from "../components/seo";
 
 const IndexPage = () => {
   let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -33,36 +33,53 @@ const IndexPage = () => {
           lat: pos.coords.latitude,
           long: pos.coords.longitude,
         };
-        apiFetch(position);
+        postFunction(position);
       },
       function (err) {
         setErrors((arr) => [...arr, err.message]);
       }
     );
+
+    function postFunction(position) {
+      let posData = {
+        lat: position.lat,
+        long: position.long,
+      };
+      fetch("/.netlify/functions/weatherFetch", {
+        method: "POST",
+        body: JSON.stringify(posData),
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((resData) => {
+          if (!resData.errorMessage) {
+            setData(resData);
+          } else {
+            setErrors((arr) => [
+              ...arr,
+              "lambda function failed: " + resData.errorMessage,
+            ]);
+          }
+        })
+        .catch((err) => {
+          setErrors((arr) => [...arr, "post function failed: " + err]);
+        });
+    }
   }, []);
 
-  function apiFetch(position) {
-    let apiKey = "45978a6687a1fab0ae76212f61cbc0f3";
-    let baseUrl = "https://api.openweathermap.org/data/2.5/";
-    let urlCity = `${baseUrl}weather?lat=${position.lat}&lon=${position.long}&appid=${apiKey}`;
-    let urlWeather = `${baseUrl}onecall?lat=${position.lat}&lon=${position.long}&exclude=minutely&appid=${apiKey}&units=metric`;
-    Promise.all([
-      fetch(urlWeather).then((res) => res.json()),
-      fetch(urlCity).then((res) => res.json()),
-    ])
-      .then((temps) => setData(temps))
-      .catch(() =>
-        setErrors((arr) => [
-          ...arr,
-          "something went wrong, please try in a while",
-        ])
-      );
-  }
   if (errors.length > 0) {
     return (
-      <main>
+      <main className="errors">
         <Seo />
-        <p className="errors">{errors[0]}</p>
+        <h3>errors: </h3>
+        <p className="errors">
+          {errors.map((err) => {
+            return <span>- {err}</span>;
+          })}
+        </p>
       </main>
     );
   }
@@ -93,7 +110,7 @@ const IndexPage = () => {
           <span>humidity {current.humidity}%</span>
           <span className="description">{current.weather[0].description}</span>
           <img
-            src={`http://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`}
+            src={`https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`}
             alt="weather-img"
           />
 
