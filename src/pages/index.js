@@ -7,6 +7,7 @@ import Seo from "../components/seo";
 import { StaticImage } from "gatsby-plugin-image";
 import "../scss/main.scss";
 import "../scss/tabs.scss";
+import ErrorWeather from "../components/error";
 
 const IndexPage = () => {
   let days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -36,7 +37,11 @@ const IndexPage = () => {
         postFunction(position);
       },
       function (err) {
-        setErrors((arr) => [...arr, err.message]);
+        setErrors((arr) => [
+          ...arr,
+          "Please make sure you gave the right geolocation permission. " +
+            err.message,
+        ]);
       }
     );
 
@@ -70,20 +75,9 @@ const IndexPage = () => {
     }
   }, []);
 
-  if (errors.length > 0) {
-    return (
-      <main className="errors">
-        <Seo />
-        <h3>errors: </h3>
-        <p className="errors">
-          {errors.map((err) => {
-            return <span>- {err}</span>;
-          })}
-        </p>
-      </main>
-    );
-  }
+  if (errors.length > 0) return <ErrorWeather errors={errors} />;
   if (data === null) return <LoadingWeather />;
+
   const { current, hourly, daily } = data[0];
   let time = new Date(current.dt * 1000);
   let day = days[time.getDay()];

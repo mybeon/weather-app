@@ -159,17 +159,20 @@ main {
 }
 
 .errors {
+  width: 90%;
   display: flex;
   flex-direction: column;
   font-size: 2rem;
   padding: 2rem;
   h3 {
-    font-size: 3rem;
+    font-size: 2rem;
     text-align: left;
-    color: rgb(223, 68, 68);
   }
   p {
-    border: 4px solid rgba(223, 68, 68, 0.425);
-    border-radius: 0.8rem;
+    span.text_error {
+      font-size: 1.2rem;
+      display: block;
+      text-transform: none;
+    }
   }
 }
