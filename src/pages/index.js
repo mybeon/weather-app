@@ -124,7 +124,7 @@ const IndexPage = () => {
         <div className="down_section">
           <Tabs>
             <TabList>
-              <Tab>today</Tab>
+              <Tab>hourly</Tab>
               <Tab>this week</Tab>
             </TabList>
             <TabPanel>
